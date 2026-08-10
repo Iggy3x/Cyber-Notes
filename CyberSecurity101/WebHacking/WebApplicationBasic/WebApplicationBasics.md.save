@@ -1,0 +1,1570 @@
+# Web Application Basics — pagrindiniai konceptai
+
+## Web Application Overview
+
+Web application — tai programa, kuri veikia per naršyklę.
+
+Paprastai ji susideda iš kelių dalių:
+
+- **Front end** — tai, ką mato ir su kuo sąveikauja vartotojas naršyklėje.
+- **Back end** — serverio pusė, kurios vartotojas tiesiogiai nemato.
+- **Database** — vieta, kur saugomi ir keičiami duomenys.
+- **Infrastructure** — serveriai, tinklai, DNS, CDN, load balanceriai ir kiti komponentai.
+- **Security components** — pvz. WAF, kuris bando filtruoti pavojingas užklausas.
+
+---
+
+## Front End
+
+Front end yra web aplikacijos dalis, kurią matome naršyklėje.
+
+Tai yra kaip aplikacijos „paviršius“:
+
+- puslapio tekstas;
+- mygtukai;
+- formos;
+- paveikslėliai;
+- meniu;
+- dizainas;
+- interaktyvūs elementai.
+
+Front end dažniausiai sudaro:
+
+- **HTML**
+- **CSS**
+- **JavaScript**
+
+Svarbu suprasti: front end kodas dažnai pasiekia vartotojo naršyklę, todėl jo negalima laikyti slapta ar saugia vieta.
+
+---
+
+## HTML
+
+**HTML — HyperText Markup Language**
+
+HTML yra pagrindinė web puslapio struktūra.
+
+Jis nusako, kas bus puslapyje:
+
+- antraštės;
+- tekstas;
+- nuorodos;
+- formos;
+- lentelės;
+- paveikslėliai;
+- mygtukai.
+
+Paprastai tariant:
+
+> HTML pasako naršyklei, kokie elementai turi būti rodomi.
+
+Pvz. login forma, kuri turi username ir password laukus, dažniausiai bus aprašyta HTML struktūroje.
+
+---
+
+## CSS
+
+**CSS — Cascading Style Sheets**
+
+CSS apibūdina, kaip web puslapis atrodo vizualiai.
+
+Jis atsakingas už:
+
+- spalvas;
+- šriftus;
+- dydžius;
+- išdėstymą;
+- tarpus;
+- animacijas;
+- responsive dizainą.
+
+Paprastai tariant:
+
+> HTML pasako, kas yra puslapyje, o CSS pasako, kaip tai atrodo.
+
+CSS nėra saugumo logika. Jis skirtas dizainui.
+
+---
+
+## JavaScript
+
+**JavaScript / JS**
+
+JavaScript yra front end kalba, kuri leidžia puslapiui būti interaktyviam.
+
+JS gali:
+
+- reaguoti į mygtuko paspaudimą;
+- tikrinti formos laukus;
+- siųsti užklausas į serverį;
+- keisti puslapio turinį be reload;
+- dirbti su cookies, localStorage ir sessionStorage;
+- vykdyti logiką vartotojo naršyklėje.
+
+Paprastai tariant:
+
+> HTML yra struktūra, CSS yra išvaizda, o JavaScript yra elgesys.
+
+Svarbus web hacking dalykas:
+
+> JavaScript veikia kliento pusėje, todėl vartotojas gali jį matyti, analizuoti ir manipuliuoti.
+
+Dėl to slapta informacija neturėtų būti laikoma JS kode.
+
+---
+
+## Back End
+
+Back end yra serverio pusė, kurios vartotojas tiesiogiai nemato.
+
+Ji atsakinga už:
+
+- login sistemą;
+- vartotojų autorizaciją;
+- duomenų apdorojimą;
+- bendravimą su database;
+- API endpointus;
+- sesijų valdymą;
+- verslo logiką.
+
+Pvz. kai vartotojas prisijungia prie puslapio, front end tik parodo formą, bet back end patikrina:
+
+- ar username egzistuoja;
+- ar password teisingas;
+- ar vartotojas turi teisę prieiti prie tam tikro puslapio;
+- kokius duomenis jam galima parodyti.
+
+Svarbu:
+
+> Tikra saugumo logika turi būti back end pusėje, ne vien front end.
+
+---
+
+## Database
+
+Database yra vieta, kur web aplikacija saugo duomenis.
+
+Ten gali būti saugoma:
+
+- vartotojų paskyros;
+- slaptažodžių hash’ai;
+- el. pašto adresai;
+- užsakymai;
+- žinutės;
+- produktai;
+- sesijų duomenys;
+- teisės/rolės;
+- aplikacijos nustatymai.
+
+Web aplikacija dažnai siunčia užklausas į database per back end.
+
+Pvz.:
+
+1. Vartotojas įveda login duomenis.
+2. Front end nusiunčia juos į serverį.
+3. Back end patikrina duomenis database.
+4. Serveris grąžina atsakymą: login successful arba login failed.
+
+Web hacking kontekste database svarbi dėl tokių pažeidžiamumų kaip:
+
+- SQL Injection;
+- data leakage;
+- weak access control;
+- insecure direct object references;
+- netinkamai saugomi slaptažodžiai.
+
+---
+
+## Infrastructure
+
+Infrastructure — tai visi papildomi komponentai, kurie leidžia web aplikacijai veikti.
+
+Tai gali būti:
+
+- web serveris;
+- application serveris;
+- DNS;
+- CDN;
+- load balancer;
+- reverse proxy;
+- firewall;
+- WAF;
+- cloud servisai;
+- logging/monitoring sistemos;
+- containeriai;
+- Kubernetes;
+- storage sistemos.
+
+Paprastai tariant:
+
+> Infrastructure yra visas techninis pagrindas po web aplikacija.
+
+Web hacking metu svarbu suprasti, kad pažeidžiamumas gali būti ne tik pačiame kode, bet ir infrastruktūroje.
+
+Pvz.:
+
+- blogai sukonfigūruotas serveris;
+- atviri nereikalingi portai;
+- senos programų versijos;
+- public admin panel;
+- neteisingai sukonfigūruotas cloud bucket;
+- silpni TLS/SSL nustatymai.
+
+---
+
+## WAF
+
+**WAF — Web Application Firewall**
+
+WAF yra saugumo komponentas, kuris stovi tarp vartotojo ir web aplikacijos.
+
+Jo tikslas — filtruoti pavojingas HTTP užklausas.
+
+WAF gali bandyti blokuoti:
+
+- SQL Injection;
+- XSS;
+- command injection;
+- path traversal;
+- suspicious payloads;
+- automated scanning;
+- brute force bandymus.
+
+Paprastai tariant:
+
+> WAF yra kaip apsauginis prie klubo durų. Jis bando nepraleisti įtartinų užklausų.
+
+Bet svarbu:
+
+> WAF nėra magiškas skydas. Jis gali padėti, bet blogo kodo pilnai neišgelbės.
+
+Web hacking kontekste WAF svarbus todėl, kad kartais testuojant aplikaciją užklausos gali būti blokuojamos arba pakeičiamos.
+
+---
+
+## Bendras vaizdas
+
+Labai supaprastintas web aplikacijos kelias:
+
+1. Vartotojas naršyklėje atidaro puslapį.
+2. Naršyklė parodo front end: HTML, CSS, JavaScript.
+3. Vartotojas atlieka veiksmą, pvz. spaudžia login.
+4. JavaScript arba forma siunčia HTTP request į back end.
+5. Back end apdoroja request.
+6. Back end kreipiasi į database.
+7. Database grąžina duomenis.
+8. Back end grąžina response.
+9. Front end parodo rezultatą vartotojui.
+
+---
+
+## Mano trumpas mental modelis
+
+- **HTML** — ką matau.
+- **CSS** — kaip atrodo.
+- **JavaScript** — ką puslapis daro naršyklėje.
+- **Back end** — kur vyksta tikra logika.
+- **Database** — kur laikomi duomenys.
+- **Infrastructure** — ant ko visa aplikacija stovi.
+- **WAF** — filtras prieš pavojingas užklausas.
+
+---
+
+## Web hacking požiūris
+
+Kai žiūriu į web aplikaciją, turiu klausti:
+
+- Kas vyksta front end?
+- Kokius requestus naršyklė siunčia į serverį?
+- Kokie endpointai egzistuoja?
+- Ar front end neslepia svarbios informacijos?
+- Ar back end teisingai tikrina teises?
+- Ar inputai tinkamai validuojami?
+- Ar galima manipuliuoti requestais?
+- Ar database gali būti pasiekta per pažeidžiamumą?
+- Ar infrastruktūroje nėra blogos konfigūracijos?
+- Ar WAF kažką blokuoja arba išduoda apie sistemą?
+
+---
+
+## Mano verdiktas
+
+Šitas skyrius yra bazė. Čia dar nėra „hacking“ pilna prasme, bet tai yra žemėlapis, be kurio paskui viskas atrodo kaip magija.
+
+Svarbiausia suprasti ne tik terminus, bet ryšį tarp jų:
+
+> Naršyklė rodo front end, bet tikras darbas vyksta tarp requestų, back end logikos ir database.
+
+Web hacking prasideda tada, kai pradedu stebėti, keisti ir testuoti tuos requestus.
+```
+
+____________________________________________________________________
+
+
+# URL — Uniform Resource Locator
+
+## Kas yra URL?
+
+**URL — Uniform Resource Locator**
+
+URL yra web adresas, kuris leidžia pasiekti konkretų resursą internete.
+
+Tas resursas gali būti:
+
+- web puslapis;
+- nuotrauka;
+- video;
+- failas;
+- API endpointas;
+- kitas online turinys.
+
+Paprastai tariant:
+
+> URL pasako naršyklei, kur internete eiti ir kokio resurso prašyti.
+
+---
+
+## URL anatomija
+
+Pavyzdys:
+
+```text
+http://user:password@tryhackme.com:80/view-room?id=1#task3
+````
+
+Šitas URL susideda iš kelių dalių:
+
+```text
+http://          → scheme / protocol
+user:password   → user info / credentials
+tryhackme.com   → host / domain
+:80             → port
+/view-room      → path
+?id=1           → query string
+#task3          → fragment
+```
+
+Kiekviena URL dalis padeda naršyklei ir serveriui suprasti, kur reikia kreiptis ir kokio resurso prašyti.
+
+---
+
+## Scheme / Protocol
+
+Pavyzdys:
+
+```text
+http://
+https://
+```
+
+**Scheme** nurodo, kokį protokolą naudoti prisijungimui prie resurso.
+
+Dažniausi:
+
+* **HTTP** — HyperText Transfer Protocol
+* **HTTPS** — HyperText Transfer Protocol Secure
+
+**HTTPS** yra saugesnis, nes ryšys tarp naršyklės ir serverio yra šifruotas.
+
+Tai reiškia, kad trečiai pusei daug sunkiau skaityti arba keisti siunčiamus duomenis.
+
+Paprastai tariant:
+
+> HTTP yra paprastas ryšys, HTTPS yra šifruotas ryšys.
+
+Dauguma modernių web aplikacijų privalo naudoti HTTPS, ypač jei yra:
+
+* login forma;
+* slaptažodžiai;
+* mokėjimai;
+* asmeniniai duomenys;
+* sesijos/cookies.
+
+---
+
+## User Info / Credentials
+
+Pavyzdys:
+
+```text
+user:password@
+```
+
+Kai kurie URL gali turėti vartotojo prisijungimo informaciją.
+
+Pilnas pavyzdys:
+
+```text
+http://user:password@example.com
+```
+
+Čia:
+
+* `user` — vartotojo vardas;
+* `password` — slaptažodis.
+
+Šitas metodas šiandien laikomas nesaugiu ir beveik nebenaudojamas.
+
+Kodėl blogai?
+
+* URL gali likti browser history;
+* URL gali patekti į logs;
+* URL gali būti nukopijuotas ar nutekintas;
+* credentials gali matytis ekrane;
+* tai prastas saugumo dizainas.
+
+Paprastai tariant:
+
+> Login duomenų dėjimas į URL yra senas ir nesaugus metodas.
+
+---
+
+## Host / Domain
+
+Pavyzdys:
+
+```text
+tryhackme.com
+```
+
+**Host** arba **domain** nurodo, į kurį serverį / svetainę naršyklė turi kreiptis.
+
+Tai viena svarbiausių URL dalių.
+
+Paprastai tariant:
+
+> Domain pasako, kokią svetainę bandai pasiekti.
+
+Pvz.:
+
+```text
+tryhackme.com
+google.com
+github.com
+```
+
+Kiekvienas domain turi būti unikalus ir registruotas per domain registratorių.
+
+---
+
+## Domain saugumo perspektyva
+
+Iš security pusės labai svarbu tikrinti domain vardą.
+
+Atakose dažnai naudojami fake domainai, kurie atrodo panašiai į tikrus.
+
+Pvz.:
+
+```text
+tryhackme.com
+tryhacl<me.com
+tryhackrne.com
+tryhackme-login.com
+```
+
+Toks metodas vadinamas **typosquatting**.
+
+Tikslas — apgauti žmogų, kad jis manytų, jog eina į tikrą svetainę.
+
+Tai dažnai naudojama:
+
+* phishing atakose;
+* fake login puslapiuose;
+* malware platinime;
+* credential harvesting.
+
+Paprastai tariant:
+
+> Visada žiūrėk ne tik į puslapio išvaizdą, bet ir į domain vardą.
+
+---
+
+## Port
+
+Pavyzdys:
+
+```text
+:80
+:443
+```
+
+**Port** nurodo, į kokią paslaugą serveryje reikia kreiptis.
+
+Serveris gali turėti daug servisų, veikiančių per skirtingus portus.
+
+Dažni web portai:
+
+* `80` — HTTP
+* `443` — HTTPS
+
+Paprastai tariant:
+
+> IP / domain pasako, į kokį namą eini, o port pasako, pro kurias duris beldiesi.
+
+Pvz.:
+
+```text
+http://example.com:80
+https://example.com:443
+```
+
+Jeigu URL porte nieko nenurodyta, naršyklė dažniausiai naudoja default portą pagal protokolą:
+
+* HTTP → 80
+* HTTPS → 443
+
+---
+
+## Path
+
+Pavyzdys:
+
+```text
+/view-room
+```
+
+**Path** nurodo konkretų resursą serveryje.
+
+Tai gali būti:
+
+* puslapis;
+* failas;
+* endpointas;
+* aplikacijos route.
+
+Pvz.:
+
+```text
+/about
+/login
+/admin
+/api/users
+/view-room
+```
+
+Paprastai tariant:
+
+> Path pasako, kokio konkretaus dalyko prašai iš svetainės.
+
+Security perspektyva:
+
+Path'ai turi būti tinkamai apsaugoti.
+
+Pvz. vartotojas neturėtų galėti pasiekti:
+
+```text
+/admin
+/internal
+/backup
+/config
+```
+
+jeigu jis neturi tam teisės.
+
+Svarbu:
+
+> Vien tai, kad path nėra matomas meniu, nereiškia, kad jis saugus.
+
+Serveris turi tikrinti autorizaciją back end pusėje.
+
+---
+
+## Query String
+
+Pavyzdys:
+
+```text
+?id=1
+```
+
+**Query string** prasideda nuo klaustuko `?`.
+
+Ji dažnai naudojama perduoti papildomus parametrus serveriui.
+
+Pvz.:
+
+```text
+/search?q=tattoo
+/view-room?id=1
+/products?category=books
+/user?id=25
+```
+
+Query string gali turėti kelis parametrus:
+
+```text
+/products?category=books&page=2&sort=price
+```
+
+Čia:
+
+* `category=books`
+* `page=2`
+* `sort=price`
+
+Paprastai tariant:
+
+> Query string yra papildomi duomenys, kuriuos naršyklė siunčia serveriui.
+
+Security perspektyva:
+
+Vartotojas gali lengvai keisti query string.
+
+Pvz.:
+
+```text
+/user?id=25
+```
+
+gali būti pakeista į:
+
+```text
+/user?id=26
+```
+
+Todėl serveris turi tikrinti:
+
+* ar vartotojas turi teisę matyti tą resursą;
+* ar inputas validus;
+* ar parametrai nėra naudojami nesaugiai;
+* ar nėra injection galimybės.
+
+Su query string gali būti susiję pažeidžiamumai:
+
+* SQL Injection;
+* XSS;
+* IDOR;
+* command injection;
+* open redirect;
+* parameter tampering.
+
+---
+
+## Fragment
+
+Pavyzdys:
+
+```text
+#task3
+```
+
+**Fragment** prasideda nuo hash simbolio `#`.
+
+Jis dažniausiai naudojamas nukreipti naršyklę į konkrečią puslapio vietą.
+
+Pvz.:
+
+```text
+/page#section1
+/docs#install
+/room#task3
+```
+
+Paprastai tariant:
+
+> Fragment padeda naršyklei nušokti į konkrečią puslapio dalį.
+
+Svarbus dalykas:
+
+> Fragment dažniausiai nėra siunčiamas į serverį.
+
+Tai reiškia, kad serveris paprastai nemato `#task3`.
+
+Fragment dažniausiai naudojamas naršyklės / front end pusėje.
+
+Security perspektyva:
+
+Kadangi JavaScript gali skaityti fragment reikšmę, blogai parašytas front end kodas gali naudoti fragment nesaugiai.
+
+Tai gali būti susiję su:
+
+* DOM-based XSS;
+* client-side routing problemomis;
+* neteisingu duomenų apdorojimu JavaScript'e.
+
+Bet fragment nėra tas pats kaip query string.
+
+---
+
+## Full mental model
+
+Pavyzdys:
+
+```text
+https://tryhackme.com:443/room?id=1#task3
+```
+
+Galima galvoti taip:
+
+```text
+https        → naudok saugų HTTPS ryšį
+tryhackme.com → eik į šitą domain
+:443         → naudok HTTPS portą
+/room        → prašyk šito resurso / endpointo
+?id=1        → perduok parametrą id=1 serveriui
+#task3       → naršyklėje parodyk konkrečią puslapio sekciją
+```
+
+---
+
+## Web hacking požiūris į URL
+
+Kai matau URL, turiu klausti:
+
+* Koks domain?
+* Ar domain tikras, ar panašus į phishing?
+* Ar naudojamas HTTP ar HTTPS?
+* Ar URL yra port numeris?
+* Koks path?
+* Ar path atrodo kaip sensitive vieta?
+* Ar yra query string?
+* Ar galiu keisti parametrus?
+* Ar serveris tikrina autorizaciją?
+* Ar yra ID parametras?
+* Ar galima testuoti IDOR?
+* Ar inputas gali būti injection taškas?
+* Ar fragment naudojamas JavaScript logikoje?
+* Ar URL rodo API endpointą?
+
+---
+
+## Labai trumpas variantas
+
+* **Scheme** — kokiu protokolu jungiamės.
+* **User info** — login info URL'e, šiandien bloga praktika.
+* **Host / Domain** — į kokią svetainę einame.
+* **Port** — į kokį servisą serveryje kreipiamės.
+* **Path** — kokio resurso prašome.
+* **Query string** — papildomi parametrai serveriui.
+* **Fragment** — konkreti vieta puslapyje, dažniausiai browserio pusėje.
+
+---
+
+## Mano verdiktas
+
+URL atrodo paprastas dalykas, bet web hacking'e jis yra vienas iš pirmų žemėlapių.
+
+Per URL dažnai matosi:
+
+* aplikacijos struktūra;
+* endpointai;
+* parametrai;
+* galimi IDOR taškai;
+* injection taškai;
+* admin/internal keliai;
+* technologijų užuominos;
+* blogos konfiguracijos.
+
+Svarbiausia mintis:
+
+> URL nėra tik adresas. Web security požiūriu URL yra attack surface žemėlapio pradžia.
+
+_____________________________________________________________________________
+
+# HTTP Messages
+
+## Kas yra HTTP message?
+
+**HTTP messages** yra struktūruotos žinutės, kuriomis apsikeičia:
+
+- **client** — dažniausiai naršyklė, mobile app arba API klientas;
+- **web server** — serveris, kuriame veikia web aplikacija.
+
+Svarbu:
+
+> HTTP message nėra tas pats, kas network packet.
+
+HTTP message yra application-layer duomenys. Keliaudama per tinklą ji gali būti suskaidyta į TCP segmentus ir IP paketus.
+
+---
+
+## Dvi HTTP messages rūšys
+
+### HTTP Request
+
+**HTTP request** siunčia client į serverį.
+
+Request tikslas — paprašyti resurso arba atlikti veiksmą.
+
+Pvz.:
+
+- atidaryti puslapį;
+- prisijungti;
+- nusiųsti formą;
+- gauti vartotojo duomenis;
+- pakeisti account nustatymus;
+- ištrinti objektą.
+
+---
+
+### HTTP Response
+
+**HTTP response** siunčia serveris clientui kaip atsakymą į request.
+
+Response pasako:
+
+- ar request pavyko;
+- kokie duomenys grąžinami;
+- kokio tipo turinys grąžinamas;
+- ar reikia redirectinti;
+- ar vartotojas turi teisę prieiti;
+- ar įvyko klaida.
+
+---
+
+# HTTP Message struktūra
+
+HTTP/1.1 žinutė dažniausiai turi šias dalis:
+
+1. Start line
+2. Headers
+3. Empty line
+4. Body
+
+Ne kiekviena žinutė privalo turėti body.
+
+---
+
+## Start Line
+
+Start line yra pirma HTTP message eilutė.
+
+Ji pasako, ar tai yra request, ar response, ir kaip žinutę reikia interpretuoti.
+
+---
+
+### Request start line
+
+Request start line dažniausiai turi:
+
+```text
+METHOD PATH HTTP_VERSION
+````
+
+Pavyzdys:
+
+```http
+GET /products?id=55 HTTP/1.1
+```
+
+Čia:
+
+* `GET` — method;
+* `/products?id=55` — resursas ir parametrai;
+* `HTTP/1.1` — HTTP versija.
+
+---
+
+### Response start line
+
+Response start line dažniausiai turi:
+
+```text
+HTTP_VERSION STATUS_CODE STATUS_MESSAGE
+```
+
+Pavyzdys:
+
+```http
+HTTP/1.1 200 OK
+```
+
+Čia:
+
+* `HTTP/1.1` — HTTP versija;
+* `200` — status code;
+* `OK` — trumpas statuso aprašymas.
+
+---
+
+## Headers
+
+Headers yra papildoma informacija apie request arba response.
+
+Jie naudojami `key: value` formatu.
+
+Pavyzdys:
+
+```http
+Host: example.com
+User-Agent: Mozilla/5.0
+Content-Type: application/json
+Cookie: session=abc123
+```
+
+Headers gali nurodyti:
+
+* kokį host nori pasiekti;
+* kokį content tipą siunčia ar gauna client;
+* kokį browserį naudoja client;
+* cookies ir session informaciją;
+* autorizacijos duomenis;
+* caching taisykles;
+* security nustatymus;
+* kalbą;
+* redirect informaciją.
+
+Paprastai tariant:
+
+> Start line pasako pagrindinį veiksmą, o headers duoda papildomą kontekstą ir instrukcijas.
+
+---
+
+## Empty Line
+
+HTTP/1.1 formate tuščia eilutė atskiria headers nuo body.
+
+Pavyzdys:
+
+```http
+POST /login HTTP/1.1
+Host: example.com
+Content-Type: application/x-www-form-urlencoded
+
+username=ignelis&password=test
+```
+
+Tuščia eilutė po headers parodo:
+
+> Headers baigėsi. Toliau prasideda body.
+
+Svarbu:
+
+> HTTP/2 ir HTTP/3 techniškai naudoja kitokį, binary framing formatą, todėl ten šitas „tuščios eilutės“ vaizdas nėra toks pats kaip HTTP/1.1.
+
+Bet mokantis Burp Suite, browser DevTools ir basic web hacking, HTTP/1.1 formatą suprasti būtina.
+
+---
+
+## Body
+
+Body yra vieta, kur gali būti siunčiami tikrieji duomenys.
+
+### Request body
+
+Request body dažnai naudojamas siunčiant duomenis į serverį.
+
+Pvz. login forma:
+
+```http
+POST /login HTTP/1.1
+Host: example.com
+Content-Type: application/x-www-form-urlencoded
+
+username=ignelis&password=test
+```
+
+Body čia yra:
+
+```text
+username=ignelis&password=test
+```
+
+---
+
+### Response body
+
+Response body yra turinys, kurį serveris grąžina clientui.
+
+Pvz. HTML puslapis:
+
+```http
+HTTP/1.1 200 OK
+Content-Type: text/html
+
+<html>
+  <body>Hello</body>
+</html>
+```
+
+Body čia yra HTML kodas.
+
+Response body gali būti:
+
+* HTML;
+* JSON;
+* CSS;
+* JavaScript;
+* paveikslėlis;
+* failas;
+* API duomenys;
+* klaidos tekstas.
+
+---
+
+# Paprastas request pavyzdys
+
+```http
+GET /products?id=55 HTTP/1.1
+Host: shop.example.com
+User-Agent: Mozilla/5.0
+Accept: text/html
+Cookie: session=abc123
+```
+
+Šiame requeste:
+
+```text
+GET /products?id=55 HTTP/1.1  → start line
+Host: shop.example.com         → header
+User-Agent: Mozilla/5.0        → header
+Accept: text/html              → header
+Cookie: session=abc123         → header
+```
+
+Šitas GET request neturi body.
+
+---
+
+# Paprastas response pavyzdys
+
+```http
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 32
+
+<h1>Product page</h1>
+```
+
+Šiame response:
+
+```text
+HTTP/1.1 200 OK               → start line
+Content-Type: text/html       → header
+Content-Length: 32            → header
+<h1>Product page</h1>         → body
+```
+
+---
+
+# Kodėl HTTP messages svarbios web hacking'e?
+
+HTTP messages yra pagrindinė vieta, kur vyksta web aplikacijos komunikacija.
+
+Supratęs requestus ir response gali:
+
+* matyti, ką naršyklė siunčia serveriui;
+* keisti parametrus;
+* tikrinti authorization;
+* analizuoti cookies;
+* rasti API endpointus;
+* testuoti input validation;
+* pastebėti IDOR;
+* matyti serverio klaidas;
+* suprasti, ką blokuoja WAF;
+* analizuoti redirectus;
+* ieškoti informacijos leakage.
+
+---
+
+# Web hacking mental modelis
+
+```text
+Request = ko client prašo arba ką siunčia serveriui
+Response = ką serveris grąžina clientui
+```
+
+Dar paprasčiau:
+
+```text
+Browser: "Duok man /profile?id=55"
+Server:  "Gerai, čia 200 OK ir profile duomenys."
+```
+
+---
+
+# Mano verdiktas
+
+HTTP messages yra web hacking pagrindas.
+
+URL pasako:
+
+> Kur einu ir ko prašau.
+
+HTTP request pasako:
+
+> Ką konkrečiai siunčiu serveriui.
+
+HTTP response parodo:
+
+> Ką serveris man leidžia gauti arba ką jis apie save išduoda.
+
+_____________________________________________________________________________
+
+
+
+# HTTP Request — Request Line and Methods
+
+## Kas yra HTTP Request?
+
+HTTP request yra žinutė, kurią client siunčia web serveriui, kad galėtų sąveikauti su web aplikacija ir atlikti veiksmą.
+
+Client gali būti:
+
+- web browser;
+- mobile app;
+- API client;
+- scriptas;
+- Burp Suite;
+- curl.
+
+HTTP request yra pirmas kontaktas tarp client ir web serverio.
+
+Paprastai tariant:
+
+> Client sako serveriui, ko nori: gauti puslapį, prisijungti, sukurti objektą, pakeisti duomenis ar kažką ištrinti.
+
+---
+
+## HTTP Request struktūra
+
+Pavyzdys:
+
+```http
+GET /user/login.html HTTP/1.1
+Host: tryhackme.com
+User-Agent: Mozilla/5.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Connection: keep-alive
+````
+
+HTTP request sudaro:
+
+```
+GET /user/login.html HTTP/1.1  → Request line
+Host: tryhackme.com            → Header
+User-Agent: Mozilla/5.0        → Header
+Accept: */*                    → Header
+```
+
+---
+
+# Request Line
+
+Request line yra pirma HTTP request eilutė.
+
+Ji pasako serveriui:
+
+* kokį veiksmą client nori atlikti;
+* kokio resurso prašo;
+* kokia HTTP versija naudojama.
+
+Formatas:
+
+```text
+METHOD PATH HTTP_VERSION
+```
+
+Pavyzdys:
+
+```http
+GET /user/login.html HTTP/1.1
+```
+
+Čia:
+
+```text
+GET               → HTTP method
+/user/login.html  → URL path
+HTTP/1.1          → HTTP version
+```
+
+---
+
+# HTTP Methods
+
+HTTP method nurodo, kokį veiksmą client nori atlikti su resursu.
+
+Pvz.:
+
+```text
+GET /products/55
+```
+
+reiškia:
+
+> Client nori gauti produkto nr. 55 informaciją.
+
+---
+
+## GET
+
+`GET` naudojamas duomenims gauti iš serverio.
+
+Jis neturėtų keisti serverio duomenų.
+
+Pvz.:
+
+```http
+GET /products?id=55 HTTP/1.1
+```
+
+Naudojamas:
+
+* atidaryti puslapį;
+* gauti produktą;
+* atlikti paiešką;
+* pažiūrėti profilį;
+* gauti API duomenis.
+
+Security:
+
+* nerodyti jautrių duomenų GET parametruose;
+* nedėti slaptažodžių ar tokenų į URL;
+* tikrinti, ar user turi teisę matyti prašomą resursą.
+
+---
+
+## POST
+
+`POST` naudojamas siųsti duomenis į serverį.
+
+Dažnai naudojamas:
+
+* login formoms;
+* naujo vartotojo sukūrimui;
+* komentarui parašyti;
+* failui įkelti;
+* formos duomenims nusiųsti.
+
+Pvz.:
+
+```http
+POST /login HTTP/1.1
+Host: example.com
+Content-Type: application/x-www-form-urlencoded
+
+username=ignelis&password=test
+```
+
+Security:
+
+* validuoti visą inputą;
+* sanitizuoti arba saugiai apdoroti duomenis;
+* saugotis SQL Injection;
+* saugotis XSS;
+* nenaudoti vien front end validacijos.
+
+---
+
+## PUT
+
+`PUT` dažniausiai naudojamas pilnai pakeisti arba atnaujinti resursą.
+
+Pvz.:
+
+```http
+PUT /api/users/55 HTTP/1.1
+```
+
+Dažnai reiškia:
+
+> Pakeisk visą user nr. 55 informaciją naujais duomenimis.
+
+Security:
+
+* tikrinti authorization;
+* tikrinti, ar user gali keisti būtent šį objektą;
+* validuoti siunčiamus duomenis;
+* nepasitikėti vien tuo, ką client atsiunčia.
+
+---
+
+## DELETE
+
+`DELETE` naudojamas ištrinti resursą.
+
+Pvz.:
+
+```http
+DELETE /api/orders/55 HTTP/1.1
+```
+
+Dažnai reiškia:
+
+> Ištrink order nr. 55.
+
+Security:
+
+* tik autorizuoti useriai gali trinti resursus;
+* serveris turi tikrinti ownership;
+* reikia saugotis IDOR;
+* svarbiems veiksmams kartais reikalingas papildomas patvirtinimas.
+
+---
+
+## PATCH
+
+`PATCH` naudojamas dalinai atnaujinti resursą.
+
+Pvz. vietoje viso user profilio pakeitimo gali pakeisti tik vardą:
+
+```http
+PATCH /api/users/55 HTTP/1.1
+```
+
+Pvz. body:
+
+```json
+{
+  "display_name": "Ignelis"
+}
+```
+
+Paprastai tariant:
+
+> PUT keičia visą objektą, PATCH keičia tik dalį objekto.
+
+Security:
+
+* validuoti laukus;
+* neleisti keisti laukų, kurių user neturi teisės keisti;
+* tikrinti authorization;
+* saugotis mass assignment problemų.
+
+---
+
+## HEAD
+
+`HEAD` panašus į `GET`, bet serveris grąžina tik headers, be response body.
+
+Pvz.:
+
+```http
+HEAD /file.zip HTTP/1.1
+```
+
+Naudinga, kai nori patikrinti:
+
+* ar resursas egzistuoja;
+* content type;
+* content length;
+* paskutinio pakeitimo datą;
+* caching informaciją.
+
+---
+
+## OPTIONS
+
+`OPTIONS` parodo, kokie HTTP methods yra leidžiami konkrečiam resursui.
+
+Pvz.:
+
+```http
+OPTIONS /api/users HTTP/1.1
+```
+
+Response gali turėti:
+
+```http
+Allow: GET, POST, OPTIONS
+```
+
+Tai padeda client suprasti, ką galima daryti su konkrečiu endpointu.
+
+Security:
+
+* OPTIONS nebūtinai turi būti išjungtas;
+* svarbiausia, kad serveris realiai apsaugotų jautrius methods;
+* vien `Allow` headeris nėra garantija, kad serveris tikrai apsaugotas.
+
+---
+
+## TRACE
+
+`TRACE` yra diagnostinis HTTP method.
+
+Jo tikslas — paprašyti serverio grąžinti tą patį requestą atgal.
+
+Jis gali būti naudojamas debuggingui, kad matytum, ką serveris realiai gavo.
+
+Security:
+
+* TRACE dažnai išjungiamas;
+* jis gali padidinti informacijos nutekėjimo riziką;
+* jis nėra skirtas parodyti leidžiamus methods.
+
+> OPTIONS parodo galimus methods. TRACE atspindi requestą.
+
+---
+
+## CONNECT
+
+`CONNECT` dažniausiai naudojamas proxy serveriuose.
+
+Jis prašo proxy sukurti tunelį iki kito serverio.
+
+Pavyzdys:
+
+```http
+CONNECT example.com:443 HTTP/1.1
+```
+
+Tai dažnai naudojama, kai browseris jungiasi prie HTTPS puslapio per proxy.
+
+Svarbu:
+
+> CONNECT pats savaime nesukuria HTTPS. Jis padeda proxy sukurti tunelį, per kurį tada gali keliauti HTTPS/TLS srautas.
+
+---
+
+# URL Path
+
+URL path nurodo, kokio resurso client prašo.
+
+Pvz. URL:
+
+```text
+https://tryhackme.com/api/users/123
+```
+
+Path yra:
+
+```text
+/api/users/123
+```
+
+Šitas path gali reikšti konkretų user objektą.
+
+Security požiūris:
+
+Attacker dažnai bandys keisti path, kad rastų neapsaugotus resursus.
+
+Pvz.:
+
+```text
+/admin
+/api/users/123
+/backup.zip
+/.git
+/internal
+```
+
+Serveris turi:
+
+* tikrinti authorization;
+* validuoti įvestį;
+* tinkamai apdoroti path;
+* neleisti pasiekti jautrių failų;
+* nepasitikėti vien tuo, kad user nemato nuorodos meniu.
+
+Svarbu:
+
+> Paslėptas path nėra apsaugotas path.
+
+---
+
+# HTTP Versions
+
+## HTTP/0.9 — 1991
+
+Pirmoji HTTP versija.
+
+* palaikė tik `GET`;
+* neturėjo headers;
+* buvo labai paprasta.
+
+---
+
+## HTTP/1.0 — 1996
+
+Pridėjo:
+
+* headers;
+* status codes;
+* geresnį skirtingų content tipų palaikymą;
+* caching galimybes.
+
+---
+
+## HTTP/1.1 — 1997
+
+Labai plačiai naudojama versija.
+
+Pridėjo arba pagerino:
+
+* persistent connections;
+* chunked transfer encoding;
+* Host header;
+* caching;
+* daugiau request kontrolės.
+
+---
+
+## HTTP/2 — 2015
+
+Pagerino greitį ir efektyvumą.
+
+Pagrindinės savybės:
+
+* multiplexing;
+* header compression;
+* binary framing;
+* request prioritisation.
+
+Multiplexing reiškia, kad keli requestai gali vykti per vieną connection vienu metu.
+
+---
+
+## HTTP/3 — 2022
+
+HTTP/3 paremtas QUIC protokolu, kuris veikia virš UDP.
+
+Pagrindinės idėjos:
+
+* greitesnis connection setup;
+* mažiau problemų praradus vieną paketą;
+* geresnis veikimas nestabiliuose tinkluose;
+* modernus šifravimo modelis.
+
+Svarbu:
+
+> HTTP/3 nėra tiesiog HTTP/2 su kitu numeriu. Jis naudoja kitą transporto pagrindą — QUIC vietoje TCP.
+
+---
+
+# Web Hacking mental modelis
+
+Kai matau HTTP request, žiūriu:
+
+```text
+Method   → ką client bando padaryti?
+Path     → su kokiu resursu?
+Headers  → kokia papildoma informacija siunčiama?
+Cookie   → kokia session / identity naudojama?
+Body     → kokie duomenys siunčiami?
+```
+
+Pvz.:
+
+```http
+GET /api/users/55 HTTP/1.1
+Cookie: session=abc123
+```
+
+Čia reikia klausti:
+
+* kas yra user 55?
+* ar session abc123 turi teisę jį matyti?
+* kas nutiks pakeitus 55 į 56?
+* ar čia gali būti IDOR?
+
+---
+
+# Trumpa atmintinė
+
+
+GET      → gauti duomenis
+POST     → nusiųsti duomenis / sukurti veiksmą
+PUT      → pilnai pakeisti resursą
+PATCH    → dalinai pakeisti resursą
+DELETE   → ištrinti resursą
+HEAD     → gauti tik headers
+OPTIONS  → paklausti, kokie methods galimi
+TRACE    → diagnostikai, atspindi requestą
+CONNECT  → proxy tuneliui į kitą serverį
+
+_________________________________________________________________
+
+

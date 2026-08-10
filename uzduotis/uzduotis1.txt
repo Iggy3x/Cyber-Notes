@@ -1,0 +1,89 @@
+Objective
+
+Before using Metasploit or running any exploit, confirm whether this finding is likely relevant to my target.
+
+Your tasks
+1. Explain the chain
+
+Write in your own words:
+
+Port 21 → open/tcp 
+FTP → file transfere protocol
+vsftpd → very secure file transfer protocol daemon
+version 2.3.4 → kiek suprantu sena versija, nes radau naujesniu
+known backdoor command execution →Tai yra execution vuln kuri atsinda kai aplikacija ar sistema yr nedokumentuota, tai pasleptas metodas remote code exec, byppasint normalias authentikacijas. unix/remote/17491.rb , unix/remote/49757.py
+possible remote access
+
+Do not copy definitions. Explain what each part means.
+
+2. Inspect the Exploit-DB entry
+
+Run:
+
+searchsploit -x 17491
+
+Answer:
+
+What language is the exploit written in? ruby
+Does it appear to be an exploit script or a Metasploit module? exploit
+What target port does it mention? 21
+Does it require a username/password? ne, cia backdoor
+What does the title "Backdoor Command Execution" suggest could happen? Kad ieisi pro galines duris :D 
+
+Do not execute it yet.
+
+3. Compare the two results
+
+Inspect the Python version too:
+
+searchsploit -x 49757
+
+Write:
+
+What is different between the Ruby and Python versions? Python zymiai tvarkingesne, viska suprast lengviau ir aiskiau. 
+Which one looks more like a standalone script? Py
+Which one would probably integrate more naturally with Metasploit? py
+4. Validate with Metasploit
+
+Open Metasploit:
+
+msfconsole
+
+Then search:
+
+search vsftpd
+
+Your job is to find whether Metasploit has a module that appears to match:
+
+vsftpd 2.3.4
+Backdoor Command Execution
+FTP / port 21
+
+Do not run it yet.
+
+Write down:
+
+Module path:exploit/unix/ftp/vsftpd_234_backdoor
+Rank: exelent
+Disclosure date: 2011-07-03
+Description: VSFTPD 2.3.4 Backdoor Command Execution
+
+5. Make a decision
+Manau kad sitas exploitas tinka musu ftp serveriui. 
+Answer this in your notes:
+
+Based on Nmap, SearchSploit, and Metasploit search results, do I have enough evidence that this module is relevant to my Metasploitable VM?
+
+Your answer must include:
+
+Evidence from Nmap: sitas parode daug portu, bet pirma kuri patikrinau tai ftp kuris yra vsftpd 2.3.4 
+Evidence from SearchSploit:sitas parode 2 backdor exec, ruby ir py. 
+Evidence from Metasploit: metaspoile taipogi radau exploita. 
+What could still make the exploit fail: daug dalyku, ne tokia versija, blogai ivesti ip adresai ar dar koki vejai. exploitas gali nutrukt, targetas turi firewallus ir antivirusines. 
+Rule for this task
+
+You are not trying to prove that the exploit works yet.
+
+You are trying to prove that you know why it is a logical exploit candidate.
+
+Only after that we move to exploitation.
