@@ -1,0 +1,58 @@
+#Intro 
+
+JavaScriptas yra populeri scriptinomo kalba kuri leidzia web devam prideti interaktyvius pribumbasus i web turinciu HTML ir CSS (styling). 
+Kai HTML elementai jau sukurti, galima prideti ineractivness like validation, onCLick actions, animations etc, perJS. 
+
+#Essential Concept 
+
+*Variables*
+Tai yra konteineriai kurie leidzia storint data values juose. Kaip ir kiekviena kita kalba, variable in JS are similar to containers to stora data. Kiekvienas variable turi vardus . Yra 3 budai nustatyti variables in JS:
+- var - function-scoped
+- let - block scoped
+- const - block scoped
+(paaiskink placiau)
+
+*Data Types*
+JS viduje, data types define the type of calue a variable can hold. Pvz includes string (text), number, boolean(true/false), null undefined and object (for more complex data like arrays or objects).
+
+*Functions*
+Functions representuoja blocka kodo sukurtame ivygdyti specifine uzduoti. Function viduje, sugrupuojame koda kuris turi padaryti panasia uzduoti. Pvz kuri weba application (ko nemanau kad darysiu) kuriame reikia printint studento rezultatus we page. Geriausias irankis tam, sukurti funkcija <PrintResult(rollNum), kas priimtu roll of number of the user as an argument.
+Pridedu thm duoda pvz kurio nelabai suprantu, nu suprantu bet nematau kas ivyksta ir man cia tiesiog kodas:
+   <script>
+        function PrintResult(rollNum) {
+            alert("Username with roll number " + rollNum + " has passed the exam");
+            // any other logic to display the result
+        }
+
+        // prepare an array of roll numbers (data)
+        const rollNumbers = [101, 102, 103];
+
+        // Note: We only have 3 roll numbers, so after i = 2, rollNumbers[i] becomes undefined
+
+        for (let i = 0; i < 100; i++) {
+            PrintResult(rollNumbers[i]);
+        }
+    </script>
+        
+
+*Loops*
+Lopsai leidzia runint kodo bloka multiple times as long as condition is true. Dazni loopai JS yra <for> <while> ir <do...while>. kurie naudojami pakartoti uzduotis, kaip going through the list of items. Yra duotas pvz bet man sitas ir praietas visiskai nesiskiria, vistiek cia imesiu galesi paaiskint:
+
+        // Function to print student result
+        function PrintResult(rollNum) {
+            alert("Username with roll number " + rollNum + " has passed the exam");
+            // any other logic to the display result
+        }
+
+        // prepare an array of roll numbers (data)
+        const rollNumbers = [101, 102, 103];
+
+        // Note: We only have 3 roll numbers, so after i = 2, rollNumbers[i] becomes undefined
+
+        for (let i = 0; i < 100; i++) {
+            PrintResult(rollNumbers[i]); // this will be called 100 times 
+        }
+    
+
+*Request-Response Cycle*
+In web dev, request-response ciklas yra kai userio browseris (client) siuncia requesta i web serva ir servas respondinda su requested info. Tai gali but webpage, data, or other resources.
